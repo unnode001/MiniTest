@@ -25,6 +25,59 @@ class TestRunner {
      * 运行测试文件
      */
     async run(testFiles) {
+        // 检查是否启用并行执行
+        if (this.config.parallel && testFiles.length > 1) {
+            return await this.runInParallel(testFiles);
+        } else {
+            return await this.runSequentially(testFiles);
+        }
+    }
+
+    /**
+     * 并行运行测试文件
+     */
+    async runInParallel(testFiles) {
+        const ParallelTestRunner = require('../parallel/runner');
+        const parallelRunner = new ParallelTestRunner(this.config);
+
+        console.log(`🔀 Running ${testFiles.length} test files in parallel...`);
+
+        const startTime = Date.now();
+
+        try {
+            const results = await parallelRunner.run(testFiles);
+
+            // 如果启用覆盖率，需要在主进程中收集
+            if (this.config.coverage?.enabled) {
+                console.log('📊 Collecting coverage data...');
+                // 注意：并行执行时覆盖率收集更复杂，暂时跳过
+                results.coverage = null;
+            }
+
+            // 确保结果格式兼容
+            if (!results.tests) {
+                results.tests = [];
+                // 从files中收集所有测试
+                results.files.forEach(file => {
+                    if (file.tests && Array.isArray(file.tests)) {
+                        results.tests = results.tests.concat(file.tests);
+                    }
+                });
+            }
+
+            return results;
+
+        } catch (error) {
+            console.error('❌ Parallel execution failed:', error.message);
+            console.log('🔄 Falling back to sequential execution...');
+            return await this.runSequentially(testFiles);
+        }
+    }
+
+    /**
+     * 顺序运行测试文件
+     */
+    async runSequentially(testFiles) {
         const allResults = {
             passed: 0,
             failed: 0,

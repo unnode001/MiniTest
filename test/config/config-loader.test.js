@@ -35,7 +35,7 @@ describe('配置系统测试', () => {
         assert.equal(config.timeout, 5000);
         assert.deepEqual(config.reporters, ['console']);
         assert.equal(config.coverage.enabled, false);
-        assert.equal(config.watch.enabled, false);
+        assert.equal(config.watch, false);
     });
 
     test('应该加载JavaScript配置文件', () => {

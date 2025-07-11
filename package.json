@@ -13,6 +13,8 @@
     "test:html": "node src/cli.js test/**/*.test.js --reporter html",
     "test:xml": "node src/cli.js test/**/*.test.js --reporter xml",
     "test:coverage": "node src/cli.js test/**/*.test.js --coverage",
+    "test:parallel": "node src/cli.js test/**/*.test.js --parallel --max-workers 4",
+    "test:parallel:coverage": "node src/cli.js test/**/*.test.js --parallel --coverage --max-workers 4",
     "test:all": "node src/cli.js test/**/*.test.js --coverage --reporter html --xml-out test-results.xml"
   },
   "keywords": [
@@ -26,8 +28,8 @@
   "license": "MIT",
   "dependencies": {
     "chalk": "^5.0.0",
-    "glob": "^8.0.0",
     "commander": "^9.0.0",
+    "glob": "^8.1.0",
     "stack-trace": "^0.0.10"
   },
   "engines": {

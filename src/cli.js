@@ -8,6 +8,7 @@ const { ConsoleReporter } = require('./reporters/console');
 const { HtmlReporter } = require('./reporters/html');
 const { XmlReporter } = require('./reporters/xml');
 const ConfigLoader = require('./config/loader');
+const WatchMode = require('./watch');
 
 program
     .version('1.0.0')
@@ -86,6 +87,33 @@ program
             // 创建测试运行器
             const runner = new TestRunner(finalConfig);
 
+            // 如果启用监控模式
+            if (finalConfig.watch) {
+                console.log('🚀 Starting MiniTest in watch mode...');
+
+                const watchMode = new WatchMode(runner, {
+                    debounce: finalConfig.watchOptions?.debounce || 200,
+                    clearConsole: finalConfig.watchOptions?.clearConsole !== false,
+                    runOnStart: finalConfig.watchOptions?.runOnStart !== false,
+                    failFast: finalConfig.watchOptions?.failFast || false,
+                    verbose: finalConfig.reporterOptions.console.verbose,
+                    enableParallel: finalConfig.parallel,
+                    maxWorkers: finalConfig.maxWorkers,
+                    showNotifications: finalConfig.watchOptions?.showNotifications !== false,
+                    notifyOnSuccess: finalConfig.watchOptions?.notifyOnSuccess || false,
+                    notifyOnFailure: finalConfig.watchOptions?.notifyOnFailure !== false
+                });
+
+                // 设置键盘交互
+                setupWatchModeInteraction(watchMode, runner, finalConfig);
+
+                // 启动监控模式
+                await watchMode.start();
+
+                // 监控模式不会自动退出，等待用户手动停止
+                return;
+            }
+
             // 运行测试
             const results = await runner.run(testFiles);
 
@@ -159,6 +187,77 @@ async function generateReports(results, config) {
 
     // 等待所有报告生成完成
     await Promise.all(promises);
+}
+
+/**
+ * 设置监控模式键盘交互
+ */
+function setupWatchModeInteraction(watchMode, runner, config) {
+    if (!process.stdin.isTTY) {
+        return; // 非终端环境不启用交互
+    }
+
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+
+    process.stdin.on('data', async (key) => {
+        // Ctrl+C
+        if (key === '\u0003') {
+            console.log('\n👋 Goodbye!');
+            await watchMode.stop();
+            process.exit(0);
+        }
+
+        // Enter 键处理
+        if (key === '\r' || key === '\n') {
+            return;
+        }
+
+        // 处理单字符命令
+        switch (key.toLowerCase()) {
+            case 'r':
+                console.log('\n🔄 Running all tests...');
+                await watchMode.runAllTests();
+                break;
+
+            case 'c':
+                watchMode.clearConsole();
+                watchMode.showWatchStatus();
+                break;
+
+            case 's':
+                console.log('\n📊 Statistics:');
+                const stats = watchMode.getStats();
+                console.log(`   Runs: ${stats.totalRuns} (${stats.successfulRuns}✅ ${stats.failedRuns}❌)`);
+                console.log(`   Files watched: ${stats.watcher.watchedFiles}`);
+                console.log(`   Files changed: ${stats.filesChanged}`);
+                console.log(`   Average run time: ${stats.averageRunTime}ms`);
+                console.log('');
+                break;
+
+            case 'h':
+            case '?':
+                console.log('\n📚 Commands:');
+                console.log('   r - Run all tests');
+                console.log('   c - Clear console');
+                console.log('   s - Show statistics');
+                console.log('   h/? - Show this help');
+                console.log('   Ctrl+C - Exit');
+                console.log('');
+                break;
+
+            case 'q':
+                console.log('\n👋 Goodbye!');
+                await watchMode.stop();
+                process.exit(0);
+                break;
+
+            default:
+                // 忽略其他按键
+                break;
+        }
+    });
 }
 
 // 如果直接运行此文件

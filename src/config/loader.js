@@ -19,11 +19,17 @@ class ConfigLoader {
             ignore: ['node_modules/**', 'coverage/**', 'build/**'],
 
             // 监控模式
-            watch: {
-                enabled: false,
-                ignore: ['node_modules/**', 'coverage/**'],
-                extensions: ['.js', '.ts', '.json'],
-                debounce: 100
+            watch: false,
+            watchOptions: {
+                debounce: 200,
+                clearConsole: true,
+                runOnStart: true,
+                failFast: false,
+                showNotifications: true,
+                notifyOnSuccess: false,
+                notifyOnFailure: true,
+                ignore: ['node_modules/**', 'coverage/**', 'build/**'],
+                extensions: ['.js', '.ts', '.json']
             },
 
             // 覆盖率配置
@@ -212,7 +218,7 @@ class ConfigLoader {
         if (cliArgs.maxWorkers !== undefined) merged.maxWorkers = cliArgs.maxWorkers;
         if (cliArgs.timeout !== undefined) merged.timeout = cliArgs.timeout;
         if (cliArgs.coverage !== undefined) merged.coverage.enabled = cliArgs.coverage;
-        if (cliArgs.watch !== undefined) merged.watch.enabled = cliArgs.watch;
+        if (cliArgs.watch !== undefined) merged.watch = cliArgs.watch;
         if (cliArgs.reporter !== undefined) {
             merged.reporters = Array.isArray(cliArgs.reporter) ? cliArgs.reporter : [cliArgs.reporter];
         }
@@ -239,7 +245,7 @@ class ConfigLoader {
         console.log(`  Parallel: ${config.parallel} (${config.maxWorkers} workers)`);
         console.log(`  Timeout: ${config.timeout}ms`);
         console.log(`  Coverage: ${config.coverage.enabled}`);
-        console.log(`  Watch: ${config.watch.enabled}`);
+        console.log(`  Watch: ${config.watch}`);
         console.log(`  Reporters: ${config.reporters.join(', ')}`);
         console.log(`  Test Match: ${config.testMatch.join(', ')}`);
         console.log('');
