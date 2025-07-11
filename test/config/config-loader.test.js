@@ -27,10 +27,10 @@ describe('配置系统测试', () => {
                 delete require.cache[key];
             }
         });
-    });    test('应该加载默认配置', () => {
+    }); test('应该加载默认配置', () => {
         // 传入不存在的配置文件路径，确保使用默认配置
         const config = configLoader.load('non-existent-config.js');
-        
+
         assert.equal(config.parallel, false);
         assert.equal(config.timeout, 5000);
         assert.deepEqual(config.reporters, ['console']);
