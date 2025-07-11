@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="MiniTest Suite" tests="76" failures="0" skipped="0" time="0.433" timestamp="2025-07-11T10:06:55.878Z">
+  <testsuite name="test/core/assert.test.js" tests="7" failures="0" skipped="0" time="0.002">
+    <testcase classname="Assert Library Tests &gt; equal assertion" name="should pass when values are equal" time="0.001"/>
+    <testcase classname="Assert Library Tests &gt; equal assertion" name="should fail when values are not equal" time="0.000"/>
+    <testcase classname="Assert Library Tests &gt; deepEqual assertion" name="should pass for deep equal objects" time="0.000"/>
+    <testcase classname="Assert Library Tests &gt; deepEqual assertion" name="should fail for different objects" time="0.000"/>
+    <testcase classname="Assert Library Tests &gt; boolean assertions" name="should handle true/false assertions" time="0.000"/>
+    <testcase classname="Assert Library Tests &gt; async assertions" name="should handle async resolves" time="0.000"/>
+    <testcase classname="Assert Library Tests &gt; async assertions" name="should handle async rejects" time="0.000"/>
+  </testsuite>
+  <testsuite name="test/core/extended-assert.test.js" tests="21" failures="0" skipped="0" time="0.001">
+    <testcase classname="Extended Assertions &gt; includes and notIncludes" name="should test string includes" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; includes and notIncludes" name="should test array includes" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; includes and notIncludes" name="should fail when item not found" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; type assertions" name="should test instanceof" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; type assertions" name="should test typeof" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; type assertions" name="should fail with wrong type" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; length assertions" name="should test array length" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; length assertions" name="should fail with wrong length" time="0.001"/>
+    <testcase classname="Extended Assertions &gt; empty assertions" name="should test empty values" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; empty assertions" name="should test non-empty values" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; null and undefined assertions" name="should test null values" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; null and undefined assertions" name="should test undefined values" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; range assertions" name="should test number ranges" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; range assertions" name="should fail when out of range" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; regex assertions" name="should test regex matches" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; regex assertions" name="should fail when pattern not matched" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; property assertions" name="should test object properties" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; property assertions" name="should fail when property missing" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; array inclusion assertions" name="should test includesAllOf" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; array inclusion assertions" name="should test includesAnyOf" time="0.000"/>
+    <testcase classname="Extended Assertions &gt; array inclusion assertions" name="should fail when no elements found" time="0.000"/>
+  </testsuite>
+  <testsuite name="test/debug/hooks.test.js" tests="0" failures="0" skipped="0" time="0.000">
+  </testsuite>
+  <testsuite name="test/debug/import.test.js" tests="1" failures="0" skipped="0" time="0.001">
+    <testcase classname="Module Import Test" name="should import Calculator correctly" time="0.001"/>
+  </testsuite>
+  <testsuite name="test/debug/simple-calc.test.js" tests="2" failures="0" skipped="0" time="0.001">
+    <testcase classname="Simple Calculator Test" name="should create calculator instance" time="0.000"/>
+    <testcase classname="Simple Calculator Test" name="should add numbers" time="0.000"/>
+  </testsuite>
+  <testsuite name="test/examples/async.test.js" tests="4" failures="0" skipped="0" time="0.108">
+    <testcase classname="Async Tests" name="should handle promises" time="0.000"/>
+    <testcase classname="Async Tests" name="should handle promise rejection" time="0.000"/>
+    <testcase classname="Async Tests" name="should handle timeout" time="0.108"/>
+    <testcase classname="Async Tests" name="should resolve multiple promises" time="0.000"/>
+  </testsuite>
+  <testsuite name="test/examples/basic.test.js" tests="7" failures="0" skipped="0" time="0.001">
+    <testcase classname="Basic Tests" name="should pass basic assertions" time="0.001"/>
+    <testcase classname="Basic Tests" name="should test deep equality" time="0.000"/>
+    <testcase classname="Basic Tests" name="should handle error throwing" time="0.000"/>
+    <testcase classname="Basic Tests" name="should handle async tests" time="0.000"/>
+    <testcase classname="Basic Tests" name="should handle async rejection" time="0.000"/>
+    <testcase classname="Nested Suite" name="nested test 1" time="0.000"/>
+    <testcase classname="Nested Suite &gt; Deeply Nested" name="deeply nested test" time="0.000"/>
+  </testsuite>
+  <testsuite name="test/examples/demo.test.js" tests="11" failures="0" skipped="0" time="0.034">
+    <testcase classname="MiniTest Framework Demo &gt; Basic Assertions" name="should demonstrate equality assertions" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Basic Assertions" name="should demonstrate deep equality" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Error Handling" name="should catch synchronous errors" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Error Handling" name="should handle custom errors" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Async Operations" name="should handle promises" time="0.012"/>
+    <testcase classname="MiniTest Framework Demo &gt; Async Operations" name="should handle async errors" time="0.015"/>
+    <testcase classname="MiniTest Framework Demo &gt; Async Operations" name="should handle multiple async operations" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Data Processing" name="should process user data correctly" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Data Processing" name="should validate configuration" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Nested Test Organization &gt; Level 2 Nesting" name="should work in nested describe blocks" time="0.000"/>
+    <testcase classname="MiniTest Framework Demo &gt; Nested Test Organization &gt; Level 2 Nesting &gt; Level 3 Nesting" name="should work in deeply nested blocks" time="0.000"/>
+  </testsuite>
+  <testsuite name="test/examples/failing.test.js" tests="0" failures="0" skipped="0" time="0.000">
+  </testsuite>
+  <testsuite name="test/examples/hooks.test.js" tests="3" failures="0" skipped="0" time="0.001">
+    <testcase classname="Hooks Test" name="should have setup data" time="0.000"/>
+    <testcase classname="Hooks Test" name="should increment counter" time="0.000"/>
+    <testcase classname="Hooks Test" name="counter should be reset" time="0.000"/>
+  </testsuite>
+  <testsuite name="test/modules/math.test.js" tests="20" failures="0" skipped="0" time="0.274">
+    <testcase classname="Calculator Module &gt; Basic Operations" name="should add two numbers correctly" time="0.000"/>
+    <testcase classname="Calculator Module &gt; Basic Operations" name="should subtract two numbers correctly" time="0.000"/>
+    <testcase classname="Calculator Module &gt; Basic Operations" name="should multiply two numbers correctly" time="0.000"/>
+    <testcase classname="Calculator Module &gt; Basic Operations" name="should divide two numbers correctly" time="0.000"/>
+    <testcase classname="Calculator Module &gt; Basic Operations" name="should calculate power correctly" time="0.000"/>
+    <testcase classname="Calculator Module &gt; Edge Cases" name="should handle division by zero" time="0.000"/>
+    <testcase classname="Calculator Module &gt; Edge Cases" name="should handle negative numbers" time="0.000"/>
+    <testcase classname="Calculator Module &gt; Edge Cases" name="should handle decimal numbers" time="0.000"/>
+    <testcase classname="Calculator Module &gt; History Tracking" name="should track operation history" time="0.000"/>
+    <testcase classname="Calculator Module &gt; History Tracking" name="should get last result" time="0.000"/>
+    <testcase classname="Calculator Module &gt; History Tracking" name="should clear history" time="0.000"/>
+    <testcase classname="Calculator Module &gt; History Tracking" name="should return copy of history" time="0.000"/>
+    <testcase classname="AsyncMathUtils Module &gt; Factorial Function" name="should calculate factorial correctly" time="0.025"/>
+    <testcase classname="AsyncMathUtils Module &gt; Factorial Function" name="should handle factorial of 0" time="0.016"/>
+    <testcase classname="AsyncMathUtils Module &gt; Factorial Function" name="should handle factorial of 1" time="0.016"/>
+    <testcase classname="AsyncMathUtils Module &gt; Factorial Function" name="should reject negative numbers" time="0.000"/>
+    <testcase classname="AsyncMathUtils Module &gt; Prime Number Function" name="should identify prime numbers correctly" time="0.077"/>
+    <testcase classname="AsyncMathUtils Module &gt; Prime Number Function" name="should identify non-prime numbers correctly" time="0.078"/>
+    <testcase classname="AsyncMathUtils Module &gt; Prime Number Function" name="should handle edge cases" time="0.030"/>
+    <testcase classname="AsyncMathUtils Module &gt; Combined Operations" name="should work with calculator and async utils together" time="0.032"/>
+  </testsuite>
+</testsuites>

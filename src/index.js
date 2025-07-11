@@ -4,6 +4,9 @@ const { TestSuite } = require('./core/suite');
 const { TestContext, setupGlobalAPI } = require('./core/context');
 const { Assert, AssertionError } = require('./assertions/assert');
 const { ConsoleReporter } = require('./reporters/console');
+const { HtmlReporter } = require('./reporters/html');
+const { XmlReporter } = require('./reporters/xml');
+const { CoverageCollector } = require('./coverage/collector');
 
 // 导出所有核心组件
 module.exports = {
@@ -14,5 +17,8 @@ module.exports = {
     Assert,
     AssertionError,
     ConsoleReporter,
+    HtmlReporter,
+    XmlReporter,
+    CoverageCollector,
     setupGlobalAPI
 };

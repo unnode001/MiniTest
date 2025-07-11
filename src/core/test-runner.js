@@ -1,21 +1,27 @@
 const path = require('path');
 const { setupGlobalAPI, context } = require('./context');
+const { CoverageCollector } = require('../coverage/collector');
 
 /**
  * 测试运行器
  */
 class TestRunner {
-    constructor(options = {}) {
-        this.options = {
-            reporter: 'console',
-            verbose: false,
-            timeout: 5000,
-            colors: true,
-            ...options
-        };
-    }
+    constructor(config = {}) {
+        // 新的配置系统
+        this.config = config;
 
-    /**
+        // 向后兼容的选项映射
+        this.options = {
+            reporter: config.reporters ? config.reporters[0] : 'console',
+            verbose: config.reporterOptions?.console?.verbose || false,
+            timeout: config.timeout || 5000,
+            colors: config.reporterOptions?.console?.colors !== false,
+            coverage: config.coverage?.enabled || false,
+            coverageDir: config.coverage?.dir || 'coverage'
+        };
+
+        this.coverageCollector = null;
+    }    /**
      * 运行测试文件
      */
     async run(testFiles) {
@@ -29,15 +35,33 @@ class TestRunner {
 
         const startTime = Date.now();
 
-        for (const testFile of testFiles) {
-            const fileResult = await this.runTestFile(testFile);
-            allResults.files.push(fileResult);
-            allResults.passed += fileResult.passed;
-            allResults.failed += fileResult.failed;
-            allResults.skipped += fileResult.skipped;
+        // 如果启用覆盖率，初始化收集器
+        if (this.options.coverage) {
+            this.coverageCollector = new CoverageCollector();
+            this.coverageCollector.start();
+        }
+
+        try {
+            for (const testFile of testFiles) {
+                const fileResult = await this.runTestFile(testFile);
+                allResults.files.push(fileResult);
+                allResults.passed += fileResult.passed;
+                allResults.failed += fileResult.failed;
+                allResults.skipped += fileResult.skipped;
+            }
+        } finally {
+            // 停止覆盖率收集
+            if (this.coverageCollector) {
+                this.coverageCollector.stop();
+            }
         }
 
         allResults.duration = Date.now() - startTime;
+
+        // 添加覆盖率报告
+        if (this.coverageCollector) {
+            allResults.coverage = this.coverageCollector.getReport();
+        }
 
         return allResults;
     }

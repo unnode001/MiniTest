@@ -162,6 +162,306 @@ class Assert {
             );
         }
     }
+
+    /**
+     * 包含断言
+     */
+    static includes(container, item, message) {
+        let contained = false;
+
+        if (typeof container === 'string') {
+            contained = container.includes(item);
+        } else if (Array.isArray(container)) {
+            contained = container.includes(item);
+        } else if (container && typeof container.includes === 'function') {
+            contained = container.includes(item);
+        }
+
+        if (!contained) {
+            throw new AssertionError(
+                message || `Expected ${JSON.stringify(container)} to include ${JSON.stringify(item)}`,
+                container,
+                `should include ${item}`
+            );
+        }
+    }
+
+    /**
+     * 不包含断言
+     */
+    static notIncludes(container, item, message) {
+        let contained = false;
+
+        if (typeof container === 'string') {
+            contained = container.includes(item);
+        } else if (Array.isArray(container)) {
+            contained = container.includes(item);
+        } else if (container && typeof container.includes === 'function') {
+            contained = container.includes(item);
+        }
+
+        if (contained) {
+            throw new AssertionError(
+                message || `Expected ${JSON.stringify(container)} to not include ${JSON.stringify(item)}`,
+                container,
+                `should not include ${item}`
+            );
+        }
+    }
+
+    /**
+     * 类型断言
+     */
+    static instanceOf(actual, expectedClass, message) {
+        if (!(actual instanceof expectedClass)) {
+            throw new AssertionError(
+                message || `Expected ${actual} to be instance of ${expectedClass.name}`,
+                actual ? actual.constructor.name : actual,
+                expectedClass.name
+            );
+        }
+    }
+
+    /**
+     * 类型检查断言
+     */
+    static typeOf(actual, expectedType, message) {
+        const actualType = typeof actual;
+        if (actualType !== expectedType) {
+            throw new AssertionError(
+                message || `Expected ${actual} to be of type ${expectedType}`,
+                actualType,
+                expectedType
+            );
+        }
+    }
+
+    /**
+     * 数组长度断言
+     */
+    static lengthOf(actual, expectedLength, message) {
+        if (!actual || typeof actual.length !== 'number') {
+            throw new AssertionError(
+                message || `Expected ${actual} to have length property`,
+                typeof actual,
+                'object with length'
+            );
+        }
+
+        if (actual.length !== expectedLength) {
+            throw new AssertionError(
+                message || `Expected length ${expectedLength}, got ${actual.length}`,
+                actual.length,
+                expectedLength
+            );
+        }
+    }
+
+    /**
+     * 空值断言
+     */
+    static isEmpty(actual, message) {
+        let empty = false;
+
+        if (actual == null) {
+            empty = true;
+        } else if (typeof actual === 'string' || Array.isArray(actual)) {
+            empty = actual.length === 0;
+        } else if (typeof actual === 'object') {
+            empty = Object.keys(actual).length === 0;
+        }
+
+        if (!empty) {
+            throw new AssertionError(
+                message || `Expected ${JSON.stringify(actual)} to be empty`,
+                actual,
+                'empty'
+            );
+        }
+    }
+
+    /**
+     * 非空断言
+     */
+    static isNotEmpty(actual, message) {
+        let empty = false;
+
+        if (actual == null) {
+            empty = true;
+        } else if (typeof actual === 'string' || Array.isArray(actual)) {
+            empty = actual.length === 0;
+        } else if (typeof actual === 'object') {
+            empty = Object.keys(actual).length === 0;
+        }
+
+        if (empty) {
+            throw new AssertionError(
+                message || `Expected ${JSON.stringify(actual)} to not be empty`,
+                actual,
+                'not empty'
+            );
+        }
+    }
+
+    /**
+     * null检查断言
+     */
+    static isNull(actual, message) {
+        if (actual !== null) {
+            throw new AssertionError(
+                message || `Expected ${actual} to be null`,
+                actual,
+                null
+            );
+        }
+    }
+
+    /**
+     * 非null检查断言
+     */
+    static isNotNull(actual, message) {
+        if (actual === null) {
+            throw new AssertionError(
+                message || `Expected value to not be null`,
+                actual,
+                'not null'
+            );
+        }
+    }
+
+    /**
+     * undefined检查断言
+     */
+    static isUndefined(actual, message) {
+        if (actual !== undefined) {
+            throw new AssertionError(
+                message || `Expected ${actual} to be undefined`,
+                actual,
+                undefined
+            );
+        }
+    }
+
+    /**
+     * 非undefined检查断言
+     */
+    static isNotUndefined(actual, message) {
+        if (actual === undefined) {
+            throw new AssertionError(
+                message || `Expected value to not be undefined`,
+                actual,
+                'not undefined'
+            );
+        }
+    }
+
+    /**
+     * 数值范围断言
+     */
+    static inRange(actual, min, max, message) {
+        if (typeof actual !== 'number' || actual < min || actual > max) {
+            throw new AssertionError(
+                message || `Expected ${actual} to be between ${min} and ${max}`,
+                actual,
+                `between ${min} and ${max}`
+            );
+        }
+    }
+
+    /**
+     * 正则表达式匹配断言
+     */
+    static matches(actual, pattern, message) {
+        if (typeof actual !== 'string') {
+            throw new AssertionError(
+                message || `Expected ${actual} to be a string`,
+                typeof actual,
+                'string'
+            );
+        }
+
+        const regex = pattern instanceof RegExp ? pattern : new RegExp(pattern);
+        if (!regex.test(actual)) {
+            throw new AssertionError(
+                message || `Expected "${actual}" to match ${regex}`,
+                actual,
+                regex.toString()
+            );
+        }
+    }
+
+    /**
+     * 对象属性存在断言
+     */
+    static hasProperty(actual, property, message) {
+        if (actual == null || !Object.prototype.hasOwnProperty.call(actual, property)) {
+            throw new AssertionError(
+                message || `Expected object to have property "${property}"`,
+                actual ? Object.keys(actual) : actual,
+                `should have property "${property}"`
+            );
+        }
+    }
+
+    /**
+     * 数组元素断言
+     */
+    static includesAllOf(actual, expected, message) {
+        if (!Array.isArray(actual)) {
+            throw new AssertionError(
+                message || `Expected ${actual} to be an array`,
+                typeof actual,
+                'array'
+            );
+        }
+
+        if (!Array.isArray(expected)) {
+            throw new AssertionError(
+                message || `Expected comparison value to be an array`,
+                typeof expected,
+                'array'
+            );
+        }
+
+        const missing = expected.filter(item => !actual.includes(item));
+        if (missing.length > 0) {
+            throw new AssertionError(
+                message || `Expected array to include all of ${JSON.stringify(expected)}, missing: ${JSON.stringify(missing)}`,
+                actual,
+                expected
+            );
+        }
+    }
+
+    /**
+     * 数组任一元素断言
+     */
+    static includesAnyOf(actual, expected, message) {
+        if (!Array.isArray(actual)) {
+            throw new AssertionError(
+                message || `Expected ${actual} to be an array`,
+                typeof actual,
+                'array'
+            );
+        }
+
+        if (!Array.isArray(expected)) {
+            throw new AssertionError(
+                message || `Expected comparison value to be an array`,
+                typeof expected,
+                'array'
+            );
+        }
+
+        const hasAny = expected.some(item => actual.includes(item));
+        if (!hasAny) {
+            throw new AssertionError(
+                message || `Expected array to include any of ${JSON.stringify(expected)}`,
+                actual,
+                expected
+            );
+        }
+    }
 }
 
 module.exports = { Assert, AssertionError };

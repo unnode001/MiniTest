@@ -9,7 +9,11 @@
   "scripts": {
     "test": "node src/cli.js test/**/*.test.js",
     "test:verbose": "node src/cli.js test/**/*.test.js --verbose",
-    "test:json": "node src/cli.js test/**/*.test.js --reporter json"
+    "test:json": "node src/cli.js test/**/*.test.js --reporter json",
+    "test:html": "node src/cli.js test/**/*.test.js --reporter html",
+    "test:xml": "node src/cli.js test/**/*.test.js --reporter xml",
+    "test:coverage": "node src/cli.js test/**/*.test.js --coverage",
+    "test:all": "node src/cli.js test/**/*.test.js --coverage --reporter html --xml-out test-results.xml"
   },
   "keywords": [
     "test",
