@@ -1,0 +1,32 @@
+{
+  "name": "minitest",
+  "version": "1.0.0",
+  "description": "A lightweight JavaScript testing framework",
+  "main": "src/index.js",
+  "bin": {
+    "minitest": "src/cli.js"
+  },
+  "scripts": {
+    "test": "node src/cli.js test/**/*.test.js",
+    "test:verbose": "node src/cli.js test/**/*.test.js --verbose",
+    "test:json": "node src/cli.js test/**/*.test.js --reporter json"
+  },
+  "keywords": [
+    "test",
+    "testing",
+    "unit-test",
+    "framework",
+    "javascript"
+  ],
+  "author": "Developer",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.0.0",
+    "glob": "^8.0.0",
+    "commander": "^9.0.0",
+    "stack-trace": "^0.0.10"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
