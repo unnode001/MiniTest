@@ -62,7 +62,7 @@ npm run test:json
 - `assert.rejects(asyncFn, expectedError)` - 异步异常断言
 - `assert.resolves(asyncFn)` - 异步成功断言
 
-### 扩展断言 (第二阶段新增)
+### 扩展断言
 
 #### 包含性断言
 
@@ -170,54 +170,3 @@ npm run test:coverage
 # 生成XML格式报告（适用于CI/CD）
 npx minitest --coverage --reporter xml --xml-out results.xml
 ```
-
-## 第三阶段规划
-
-### 🚀 计划功能
-
-- [ ] **并行测试执行** - 提高大型测试套件执行速度
-- [ ] **Mock/Stub系统** - 模拟依赖和外部调用
-- [ ] **性能基准测试** - 性能回归检测
-- [ ] **快照测试** - UI/输出快照对比
-- [ ] **自定义匹配器** - 扩展断言能力
-- [ ] **测试数据生成器** - 自动化测试数据创建
-- [ ] **Watch模式** - 文件变更自动重新运行测试
-- [ ] **配置文件支持** - minitest.config.js 配置
-- [ ] **插件系统** - 可扩展的插件架构
-- [ ] **测试环境隔离** - 沙箱环境执行
-
-### 📊 性能目标
-
-- 测试执行速度提升 50%（并行执行）
-- 支持 10,000+ 测试用例
-- 内存使用优化 30%
-- 启动时间 < 100ms
-
-如需开始第三阶段开发，请告知具体功能需求！
-
-## 开发状态
-
-- [x] 第一阶段：核心测试框架 ✅
-  - [x] 基础断言库 (equal, notEqual, true, false, deepEqual, throws)
-  - [x] 异步断言 (rejects, resolves)
-  - [x] 测试用例和测试套件
-  - [x] 钩子函数 (beforeAll, afterAll, beforeEach, afterEach)
-  - [x] 控制台报告器
-  - [x] CLI界面
-  - [x] 超时控制
-  - [x] 嵌套测试套件支持
-
-- [x] 第二阶段：增强功能 ✅
-  - [x] 扩展断言库 (21个新断言方法)
-  - [x] 代码覆盖率统计
-  - [x] HTML报告器 (响应式Web界面)
-  - [x] XML报告器 (JUnit兼容)
-  - [x] 多格式报告生成
-  - [x] CI/CD集成支持
-
-- [ ] 第三阶段：高级功能
-  - [ ] 并行测试执行
-  - [ ] Mock/Stub系统
-  - [ ] 性能基准测试
-  - [ ] 快照测试
-  - [ ] 监控模式
